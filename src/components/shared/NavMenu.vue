@@ -18,14 +18,12 @@
         router
         :to="item.route"
       >
-        <v-list-item>
-          <v-list-item-action>
-            <i :class="item.icon"></i>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
+        <v-list-item-action>
+          <i :class="item.icon"></i>
+        </v-list-item-action>
+        <v-list-item-content>
+          <v-list-item-title>{{ item.title }}</v-list-item-title>
+        </v-list-item-content>
       </v-list-item>
       <v-list-item link>
         <v-list-item-action>
@@ -51,7 +49,8 @@
 
 <script lang="ts">
 import { mapState } from "vuex";
-import Vue from "Vue";
+import { IApplicationModel } from "@/models/ApplicationModel";
+import Vue from "vue";
 export default Vue.extend({
   name: "NavMenu",
   data() {
@@ -65,21 +64,24 @@ export default Vue.extend({
   },
   methods: {},
   computed: {
-    ...mapState(["layout"])
+    ...mapState({
+      layout: (state: IApplicationModel) => state,
+      navigationMenu: state => (state as IApplicationModel).navigationMenu
+    })
   },
   watch: {
-    "layout.clipped"(value) {
-      this.clipped = value;
-    },
-    "layout.floating"(value) {
-      this.floating = value;
-    },
-    "layout.mini"(value) {
-      this.mini = value;
-    },
-    "layout.model"(value) {
-      this.model = value;
-    }
+    // "layout.clipped"(value) {
+    //   this.clipped = value;
+    // },
+    // "layout.floating"(value) {
+    //   this.floating = value;
+    // },
+    // "layout.mini"(value) {
+    //   this.mini = value;
+    // },
+    // "layout.model"(value) {
+    //   this.model = value;
+    // }
   },
   created() {
     if (this.layout) {
@@ -88,6 +90,8 @@ export default Vue.extend({
       this.clipped = this.layout.clipped;
       this.model = this.layout.model;
     }
+    this.$store.dispatch("application/setNavigationMenu");
+    console.log(this.navigationMenu);
   }
 });
 </script>

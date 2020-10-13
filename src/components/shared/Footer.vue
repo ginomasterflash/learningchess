@@ -19,7 +19,7 @@ export default {
   },
   computed: {
     ...mapState({
-      layout: store => store.layout
+      layout: store => store.application
     })
   },
   created() {

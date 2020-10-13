@@ -16,7 +16,7 @@ export const state: LayoutModel = {
 };
 
 const namespaced = true;
-export const layout: Module<LayoutModel, RootState> = {
+export const application: Module<LayoutModel, RootState> = {
   namespaced,
   state,
   // getters,

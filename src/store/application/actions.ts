@@ -4,6 +4,9 @@ import { RootState } from "../types";
 import { LayoutState } from "./types";
 import { SettingsService } from "@/common/api.service";
 import { LayoutModel } from "@/models/LayoutModel";
+import { NavigationMenuState } from "./types";
+
+import Vue from "vue";
 
 export const actions: ActionTree<LayoutState, RootState> = {
   saveSetting({ commit }, model: LayoutModel): any {
@@ -34,5 +37,30 @@ export const actions: ActionTree<LayoutState, RootState> = {
   },
   setFloating({ commit }, value: boolean) {
     commit(MUT.SETTINGS_SET_FLOATING, value);
+  },
+  setNavigationMenu() {
+    /* eslint-disable no-debugger */
+    debugger;
+    const navigationMenu: Array<NavigationMenuState> = [
+      {
+        id: 1,
+        icon: "fas fa-home",
+        title: "Home",
+        route: "Home"
+      },
+      {
+        id: 2,
+        icon: "fas fa-user",
+        title: "Profilo",
+        route: "Profile"
+      },
+      {
+        id: 3,
+        icon: "fas fa-cog",
+        title: "Impostazioni",
+        route: "Settings"
+      }
+    ];
+    return navigationMenu;
   }
 };

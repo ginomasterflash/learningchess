@@ -2,8 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import { RootState } from "./types";
 
-import { layout } from "./layout/index";
-import { navigationMenu } from "./navigation-menu/index";
+import { application } from "./application/index";
 
 Vue.use(Vuex);
 
@@ -13,5 +12,5 @@ export default new Vuex.Store<RootState>({
   },
   mutations: {},
   actions: {},
-  modules: { layout, navigationMenu }
+  modules: { application }
 });

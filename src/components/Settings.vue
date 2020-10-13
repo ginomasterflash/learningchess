@@ -72,22 +72,22 @@ export default {
   }),
   watch: {
     darkMode(value) {
-      this.$store.dispatch("layout/setDarkMode", value);
+      this.$store.dispatch("application/setDarkMode", value);
     },
     clipped(value) {
-      this.$store.dispatch("layout/setClippedToolbar", value);
+      this.$store.dispatch("application/setClippedToolbar", value);
     },
     type(value) {
-      this.$store.dispatch("layout/setTypeToolbar", value);
+      this.$store.dispatch("application/setTypeToolbar", value);
     },
     inset(value) {
-      this.$store.dispatch("layout/setFooterInset", value);
+      this.$store.dispatch("application/setFooterInset", value);
     },
     mini(value) {
-      this.$store.dispatch("layout/setMiniDrawerMenu", value);
+      this.$store.dispatch("application/setMiniDrawerMenu", value);
     },
     floating(value) {
-      this.$store.dispatch("layout/setFloating", value);
+      this.$store.dispatch("application/setFloating", value);
     }
   },
   // computed: {
@@ -100,7 +100,7 @@ export default {
   // },
   actions: {
     saveSettings() {
-      this.$store.dispatch("layout/saveSetting", this.settings);
+      this.$store.dispatch("application/saveSetting", this.settings);
     }
   }
 };
