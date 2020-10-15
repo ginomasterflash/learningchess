@@ -3,12 +3,14 @@ import { ActionTree } from "vuex";
 import { RootState } from "../types";
 import { LayoutState } from "./types";
 import { SettingsService } from "@/common/api.service";
+import { IApplicationModel } from "@/models/ApplicationModel";
 import { LayoutModel } from "@/models/LayoutModel";
-import { NavigationMenuState } from "./types";
+
+import { NavigationMenuModel } from "@/models/NavigationMenuModel";
 
 import Vue from "vue";
 
-export const actions: ActionTree<LayoutState, RootState> = {
+export const actions: ActionTree<IApplicationModel, RootState> = {
   saveSetting({ commit }, model: LayoutModel): any {
     commit(MUT.SETTINGS_LOAD_START);
     return SettingsService.save(model);
@@ -40,22 +42,19 @@ export const actions: ActionTree<LayoutState, RootState> = {
   },
   setNavigationMenu() {
     /* eslint-disable no-debugger */
-    debugger;
-    const navigationMenu: Array<NavigationMenuState> = [
+    // debugger;
+    const navigationMenu: Array<NavigationMenuModel> = [
       {
-        id: 1,
         icon: "fas fa-home",
         title: "Home",
         route: "Home"
       },
       {
-        id: 2,
         icon: "fas fa-user",
         title: "Profilo",
         route: "Profile"
       },
       {
-        id: 3,
         icon: "fas fa-cog",
         title: "Impostazioni",
         route: "Settings"

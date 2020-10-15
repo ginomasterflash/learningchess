@@ -7,10 +7,9 @@ import { application } from "./application/index";
 Vue.use(Vuex);
 
 export default new Vuex.Store<RootState>({
+// export default new Vuex.Store({
   state: {
     version: "1.0.0" // a simple property
   },
-  mutations: {},
-  actions: {},
   modules: { application }
 });

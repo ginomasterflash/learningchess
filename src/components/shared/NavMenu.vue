@@ -50,6 +50,7 @@
 <script lang="ts">
 import { mapState } from "vuex";
 import { IApplicationModel } from "@/models/ApplicationModel";
+// import { NavigationMenuModel } from "@/models/NavigationMenuModel";
 import Vue from "vue";
 export default Vue.extend({
   name: "NavMenu",
@@ -62,11 +63,9 @@ export default Vue.extend({
       type: ""
     };
   },
-  methods: {},
   computed: {
     ...mapState({
-      layout: (state: IApplicationModel) => state,
-      navigationMenu: state => (state as IApplicationModel).navigationMenu
+      navigationMenu: (state: any) => state.navigationMenu
     })
   },
   watch: {
@@ -84,14 +83,15 @@ export default Vue.extend({
     // }
   },
   created() {
-    if (this.layout) {
-      this.mini = this.layout.mini;
-      this.floating = this.layout.floating;
-      this.clipped = this.layout.clipped;
-      this.model = this.layout.model;
-    }
+    // if (this.layout) {
+    //   this.mini = this.layout.mini;
+    //   this.floating = this.layout.floating;
+    //   this.clipped = this.layout.clipped;
+    //   this.model = this.layout.model;
+    // }
     this.$store.dispatch("application/setNavigationMenu");
     console.log(this.navigationMenu);
-  }
+  },
+  methods: {}
 });
 </script>

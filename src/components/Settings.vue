@@ -72,6 +72,8 @@ export default {
   }),
   watch: {
     darkMode(value) {
+      // eslint-disable-next-line no-debugger
+      debugger;
       this.$store.dispatch("application/setDarkMode", value);
     },
     clipped(value) {

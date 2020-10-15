@@ -3,5 +3,5 @@ import { NavigationMenuModel } from "@/models/NavigationMenuModel";
 
 export interface IApplicationModel {
   layout: LayoutModel;
-  navigationMenu: NavigationMenuModel;
+  navigationMenu: NavigationMenuModel[];
 }
