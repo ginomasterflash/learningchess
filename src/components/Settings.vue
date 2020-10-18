@@ -57,8 +57,21 @@
   </v-app>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { mapActions, mapState } from "vuex";
+import {
+  SET_FLOATING,
+  SET_MINI_DRAWER_MENU,
+  SET_FOOTER_INSET,
+  SET_TYPE_TOOLBAR,
+  SET_CLIPPED_TOOLBAR,
+  SET_DARKMODE,
+  SET_NAVIGATION_MENU,
+  SAVE_SETTINGS
+} from "@/store/actions";
+
+import Vue from "vue";
+export default Vue.extend({
   name: "Settings",
   data: () => ({
     drawers: ["Default (no property)", "Permanent", "Temporary"],
@@ -71,25 +84,29 @@ export default {
     model: ""
   }),
   watch: {
-    darkMode(value) {
-      // eslint-disable-next-line no-debugger
-      debugger;
-      this.$store.dispatch("application/setDarkMode", value);
+    darkMode(value: boolean) {
+      this.$store.dispatch(SET_DARKMODE, value);
+      // this[SET_DARKMODE](value);
     },
-    clipped(value) {
-      this.$store.dispatch("application/setClippedToolbar", value);
+    clipped(value: boolean) {
+      this.$store.dispatch(SET_CLIPPED_TOOLBAR, value);
+      // this[SET_CLIPPED_TOOLBAR](value);
     },
-    type(value) {
-      this.$store.dispatch("application/setTypeToolbar", value);
+    type(value: string) {
+      this.$store.dispatch(SET_TYPE_TOOLBAR, value);
+      // this[SET_TYPE_TOOLBAR](value);
     },
-    inset(value) {
-      this.$store.dispatch("application/setFooterInset", value);
+    inset(value: boolean) {
+      this.$store.dispatch(SET_FOOTER_INSET, value);
+      // this[SET_FOOTER_INSET](value);
     },
-    mini(value) {
-      this.$store.dispatch("application/setMiniDrawerMenu", value);
+    mini(value: boolean) {
+      this.$store.dispatch(SET_MINI_DRAWER_MENU, value);
+      // this[SET_MINI_DRAWER_MENU](value);
     },
-    floating(value) {
-      this.$store.dispatch("application/setFloating", value);
+    floating(value: boolean) {
+      this.$store.dispatch(SET_FLOATING, value);
+      // this[SET_FLOATING](value);
     }
   },
   // computed: {
@@ -100,10 +117,23 @@ export default {
   // created() {
   //   this.model = this.settings;
   // },
-  actions: {
+  methods: {
+    ...mapActions([
+      SET_FLOATING,
+      SET_MINI_DRAWER_MENU,
+      SET_FOOTER_INSET,
+      SET_TYPE_TOOLBAR,
+      SET_CLIPPED_TOOLBAR,
+      SET_DARKMODE,
+      SET_NAVIGATION_MENU,
+      SAVE_SETTINGS
+    ]),
     saveSettings() {
-      this.$store.dispatch("application/saveSetting", this.settings);
+      let settings = {};
+      this.$store.dispatch(SAVE_SETTINGS, settings);
+
+      // this[SAVE_SETTINGS](settings);
     }
   }
-};
+});
 </script>

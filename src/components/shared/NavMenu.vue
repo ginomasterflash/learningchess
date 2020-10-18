@@ -11,9 +11,9 @@
   >
     <v-list dense>
       <v-list-item
-        link
         v-for="item in navigationMenu"
         :key="item.id"
+        link
         dense
         router
         :to="item.route"
@@ -48,9 +48,10 @@
 </template>
 
 <script lang="ts">
-import { mapState } from "vuex";
+import { mapActions, mapState } from "vuex";
 import { IApplicationModel } from "@/models/ApplicationModel";
 // import { NavigationMenuModel } from "@/models/NavigationMenuModel";
+import { SET_NAVIGATION_MENU } from "@/store/actions";
 import Vue from "vue";
 export default Vue.extend({
   name: "NavMenu",
@@ -65,33 +66,35 @@ export default Vue.extend({
   },
   computed: {
     ...mapState({
-      navigationMenu: (state: any) => state.navigationMenu
+      navigationMenu: (state: any) => state.application.navigationMenu,
+      settings: (state: any) => state.application.settings
     })
   },
   watch: {
-    // "layout.clipped"(value) {
-    //   this.clipped = value;
-    // },
-    // "layout.floating"(value) {
-    //   this.floating = value;
-    // },
-    // "layout.mini"(value) {
-    //   this.mini = value;
-    // },
-    // "layout.model"(value) {
-    //   this.model = value;
-    // }
+    "settings.clipped"(value) {
+      this.clipped = value;
+    },
+    "settings.floating"(value) {
+      this.floating = value;
+    },
+    "settings.mini"(value) {
+      this.mini = value;
+    },
+    "settings.model"(value) {
+      this.model = value;
+    }
   },
   created() {
-    // if (this.layout) {
-    //   this.mini = this.layout.mini;
-    //   this.floating = this.layout.floating;
-    //   this.clipped = this.layout.clipped;
-    //   this.model = this.layout.model;
-    // }
-    this.$store.dispatch("application/setNavigationMenu");
-    console.log(this.navigationMenu);
+    if (this.settings) {
+      this.mini = this.settings.mini;
+      this.floating = this.settings.floating;
+      this.clipped = this.settings.clipped;
+      this.model = this.settings.model;
+    }
+    this[SET_NAVIGATION_MENU]();
   },
-  methods: {}
+  methods: {
+    ...mapActions([SET_NAVIGATION_MENU])
+  }
 });
 </script>

@@ -6,35 +6,38 @@
     <app-footer />
   </v-app>
 </template>
-<script>
-import appFooter from "@/components/shared/Footer";
+
+<script lang="ts">
+import { mapActions, mapState } from "vuex";
+import appFooter from "@/components/shared/Footer.vue";
 import NavMenu from "@/components/shared/NavMenu.vue";
-import topBar from "@/components/shared/TopBar";
-import { mapState } from "vuex";
-export default {
+import topBar from "@/components/shared/TopBar.vue";
+
+import Vue from "vue";
+export default Vue.extend({
   name: "App",
   components: { appFooter, NavMenu, topBar },
-  mounted() {
-    if (location.hash) {
-      location.replace(location.hash.replace("#", ""));
-    }
+  computed: {
+    ...mapState({
+      settings: (state: any) => state.application.layout
+    })
   },
   watch: {
-    "layout.darkMode"(value) {
+    "settings.darkMode"(value) {
       /* eslint-disable no-debugger */
       // debugger;
       this.$vuetify.theme.dark = value;
     }
   },
-  created() {
-    if (this.layout && this.layout.darkMode) {
-      this.$vuetify.theme.dark = this.layout.darkMode;
+  mounted() {
+    if (location.hash) {
+      location.replace(location.hash.replace("#", ""));
     }
   },
-  computed: {
-    ...mapState({
-      layout: store => store.layout
-    })
+  created() {
+    if (this.settings && this.settings.darkMode) {
+      this.$vuetify.theme.dark = this.settings.darkMode;
+    }
   }
-};
+});
 </script>

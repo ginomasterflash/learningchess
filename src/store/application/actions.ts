@@ -7,12 +7,21 @@ import { IApplicationModel } from "@/models/ApplicationModel";
 import { LayoutModel } from "@/models/LayoutModel";
 
 import { NavigationMenuModel } from "@/models/NavigationMenuModel";
-
+import {
+  SET_NAVIGATION_MENU,
+  SET_FLOATING,
+  SET_MINI_DRAWER_MENU,
+  SET_FOOTER_INSET,
+  SET_TYPE_TOOLBAR,
+  SET_DARKMODE,
+  SET_CLIPPED_TOOLBAR,
+  SAVE_SETTINGS
+} from "@/store/actions";
 import Vue from "vue";
 
 export const actions: ActionTree<IApplicationModel, RootState> = {
-  saveSetting({ commit }, model: LayoutModel): any {
-    commit(MUT.SETTINGS_LOAD_START);
+  [SAVE_SETTINGS]({ commit }, model: LayoutModel): any {
+    commit(MUT.APPLICATION_LOAD_START);
     return SettingsService.save(model);
     // .then(response => {
     //   // context.commit(MUT.CLUB_SET_INFO, response.data);
@@ -22,25 +31,25 @@ export const actions: ActionTree<IApplicationModel, RootState> = {
     // })
     // .finally(() => commit(MUT.SETTINGS_LOAD_END));
   },
-  setClippedToolbar({ commit }, value: boolean) {
-    commit(MUT.SETTINGS_SET_CLIPPED_TOOLBAR, value);
+  [SET_CLIPPED_TOOLBAR]({ commit }, value: boolean) {
+    commit(MUT.APPLICATION_SET_CLIPPED_TOOLBAR, value);
   },
-  setDarkMode({ commit }, value: boolean) {
-    commit(MUT.SETTINGS_SET_DARK_MODE, value);
+  [SET_DARKMODE]({ commit }, value: boolean) {
+    commit(MUT.APPLICATION_SET_DARK_MODE, value);
   },
-  setTypeToolbar({ commit }, value: string) {
-    commit(MUT.SETTINGS_SET_TYPE, value);
+  [SET_TYPE_TOOLBAR]({ commit }, value: string) {
+    commit(MUT.APPLICATION_SET_TYPE, value);
   },
-  setFooterInset({ commit }, value: boolean) {
-    commit(MUT.SETTINGS_SET_FOOTER_INSET, value);
+  [SET_FOOTER_INSET]({ commit }, value: boolean) {
+    commit(MUT.APPLICATION_SET_FOOTER_INSET, value);
   },
-  setMiniDrawerMenu({ commit }, value: boolean) {
-    commit(MUT.SETTINGS_SET_MINI_DRAWER_MENU, value);
+  [SET_MINI_DRAWER_MENU]({ commit }, value: boolean) {
+    commit(MUT.APPLICATION_SET_MINI_DRAWER_MENU, value);
   },
-  setFloating({ commit }, value: boolean) {
-    commit(MUT.SETTINGS_SET_FLOATING, value);
+  [SET_FLOATING]({ commit }, value: boolean) {
+    commit(MUT.APPLICATION_SET_FLOATING, value);
   },
-  setNavigationMenu() {
+  [SET_NAVIGATION_MENU]({ commit }) {
     /* eslint-disable no-debugger */
     // debugger;
     const navigationMenu: Array<NavigationMenuModel> = [
@@ -60,6 +69,7 @@ export const actions: ActionTree<IApplicationModel, RootState> = {
         route: "Settings"
       }
     ];
-    return navigationMenu;
+    // return navigationMenu;
+    commit(MUT.APPLICATION_SET_NAVIGATION_MENU, navigationMenu);
   }
 };

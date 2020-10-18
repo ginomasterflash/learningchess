@@ -8,10 +8,11 @@
   </v-app-bar>
 </template>
 
-<script>
+<script lang="ts">
 import { mapState } from "vuex";
+import Vue from "vue";
 
-export default {
+export default Vue.extend({
   name: "TopBar",
   data: () => ({
     clipped: false,
@@ -19,30 +20,32 @@ export default {
     type: "",
     model: ""
   }),
+  computed: {
+    ...mapState({
+      settings: (state: any) => state.application.settings
+    })
+  },
   watch: {
-    "layout.clipped"(value) {
+    "settings.clipped"(value) {
       this.clipped = value;
     },
-    "layout.model"(value) {
+    "settings.model"(value) {
       this.model = value;
     },
-    "layout.permanent"(value) {
+    "settings.permanent"(value) {
       this.permanent = value;
     },
-    "layout.type"(value) {
+    "settings.type"(value) {
       this.type = value;
     }
   },
-  computed: {
-    ...mapState({
-      layout: store => store.application
-    })
-  },
   created() {
-    this.clipped = this.layout.clipped;
-    this.permanent = this.layout.permanent;
-    this.model = this.layout.model;
-    this.type = this.layout.type;
+    if (this.settings) {
+      this.clipped = this.settings.clipped;
+      this.permanent = this.settings.permanent;
+      this.model = this.settings.model;
+      this.type = this.settings.type;
+    }
   }
-};
+});
 </script>

@@ -4,28 +4,28 @@
   </v-footer>
 </template>
 
-<script>
+<script lang="ts">
 import { mapState } from "vuex";
-
-export default {
+import Vue from "vue";
+export default Vue.extend({
   name: "Footer",
   data: () => ({
     inset: false
   }),
+  computed: {
+    ...mapState({
+      settings: (state: any) => state.application.layout
+    })
+  },
   watch: {
-    "layout.inset"(value) {
+    "settings.inset"(value) {
       this.inset = value;
     }
   },
-  computed: {
-    ...mapState({
-      layout: store => store.application
-    })
-  },
   created() {
-    this.inset = this.layout.inset;
+    this.inset = this.settings.inset;
   }
-};
+});
 </script>
 
 <style></style>
